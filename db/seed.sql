@@ -40,7 +40,7 @@ VALUES
   1
   ),
   ('Sombra',
-  'Stealth and debilitating attacks make Sombra a powerful infiltrator. Her hacking can disrupt her enemies, ensuring they\'re easier to take out, while her EMP provides the upper hand against multiple foes at once. Sombra’s ability to Translocate and camouflage herself makes her a hard target to pin down.',
+  'Stealth and debilitating attacks make Sombra a powerful infiltrator. Her hacking can disrupt her enemies, ensuring they’re easier to take out, while her EMP provides the upper hand against multiple foes at once. Sombra’s ability to Translocate and camouflage herself makes her a hard target to pin down.',
   'Offense',
   'Team Assist',
   'https://blzgdapipro-a.akamaihd.net/hero/sombra/hero-select-portrait-d5121256f71c9d7dc7a434ac75be95d99942e8386ba7f8462f3e15d91223854c9b9adde42a3aca70715ab24326a7c27848151e8ab92a259ac7744d7f15a6d91b.png',
@@ -75,7 +75,7 @@ VALUES
   2
   ),
   ('Mei',
-  'Mei’s weather-altering devices slow opponents and protect locations. Her Endothermic Blaster unleashes damaging icicles and frost streams, and she can Cryo-Freeze herself to guard against counterattacks, or obstruct the opposing team\'s movements with an Ice Wall.',
+  'Mei’s weather-altering devices slow opponents and protect locations. Her Endothermic Blaster unleashes damaging icicles and frost streams, and she can Cryo-Freeze herself to guard against counterattacks, or obstruct the opposing team’s movements with an Ice Wall.',
   'Defense',
   'Solo Defender',
   'https://blzgdapipro-a.akamaihd.net/hero/mei/hero-select-portrait.png',
@@ -102,6 +102,69 @@ VALUES
   'https://blzgdapipro-a.akamaihd.net/hero/dva/hero-select-portrait.png',
   2
   ),
+  ('Reinhardt',
+  'Clad in powered armor and swinging his hammer, Reinhardt leads a rocket-propelled charge across the battleground and defends his squadmates with a massive energy barrier.',
+  'Tank',
+  'Team Shield',
+  'https://blzgdapipro-a.akamaihd.net/hero/reinhardt/hero-select-portrait.png',
+  1
+  ),
+  ('Roadhog',
+  'Roadhog uses his signature Chain Hook to pull his enemies close before shredding them with blasts from his Scrap Gun. He’s hardy enough to withstand tremendous damage, and can recover his health with a short breather.',
+  'Tank',
+  'Self Healing',
+  'https://blzgdapipro-a.akamaihd.net/hero/roadhog/hero-select-portrait.png',
+  1
+  ),
+  ('Winston',
+  'Winston wields impressive inventions—a jump pack, electricity-blasting Tesla Cannon, portable shield projector and more—with literal gorilla strength.',
+  'Tank',
+  'Mobile Tank',
+  'https://blzgdapipro-a.akamaihd.net/hero/winston/hero-select-portrait.png',
+  2
+  ),
+  ('Zarya',
+  'Deploying powerful personal barriers that convert incoming damage into energy for her massive Particle Cannon, Zarya is an invaluable asset on the front lines of any battle.',
+  'Tank',
+  'Team Assist',
+  'https://blzgdapipro-a.akamaihd.net/hero/zarya/hero-select-portrait.png',
+  3
+  ),
+  ('Ana',
+  'Ana’s versatile arsenal allows her to affect heroes all over the battlefield. Her Biotic Rifle rounds and Biotic Grenades heal allies and damage or impair enemies; her sidearm tranquilizes key targets, and Nano Boost gives one of her comrades a considerable increase in power.',
+  'Support',
+  'Debuff Healer',
+  'https://blzgdapipro-a.akamaihd.net/hero/ana/hero-select-portrait.png',
+  3
+  ),
+  ('Lúcio',
+  'On the battlefield, Lúcio’s cutting-edge Sonic Amplifier buffets enemies with projectiles and knocks foes back with blasts of sound. His songs can both heal his team or boost their movement speed, and he can switch between tracks on the fly.',
+  'Support',
+  'Solo Healer',
+  'https://blzgdapipro-a.akamaihd.net/hero/lucio/hero-select-portrait.png',
+  2
+  ),
+  ('Mercy',
+  'Mercy’s Valkyrie Suit helps keep her close to teammates like a guardian angel; healing, resurrecting or strengthening them with the beams emanating from her Caduceus Staff.',
+  'Support',
+  'Solo Healer',
+  'https://blzgdapipro-a.akamaihd.net/hero/mercy/hero-select-portrait.png',
+  1
+  ),
+  ('Symmetra',
+  'Symmetra utilizes her light-bending Photon Projector to dispatch adversaries, shield her associates, construct teleportation pads and deploy particle-blasting Sentry Turrets.',
+  'Support',
+  'Passive Damage',
+  'https://blzgdapipro-a.akamaihd.net/hero/symmetra/hero-select-portrait.png',
+  2
+  ),
+  ('Zenyatta',
+  'Zenyatta calls upon orbs of harmony and discord to heal his teammates and weaken his opponents, all while pursuing a transcendent state of immunity to damage.',
+  'Support',
+  'Debuff Healer',
+  'https://blzgdapipro-a.akamaihd.net/hero/zenyatta/hero-select-portrait.png',
+  3
+  );
 
 
 

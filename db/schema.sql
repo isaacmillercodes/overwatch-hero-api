@@ -11,6 +11,7 @@ CREATE TABLE heroes (
   description text NOT NULL,
   role varchar(255) NOT NULL,
   type varchar(255) NOT NULL,
+  image varchar(255) NOT NULL,
   difficulty int NOT NULL
 );
 

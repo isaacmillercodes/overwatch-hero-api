@@ -6,6 +6,7 @@ import (
   _ "github.com/lib/pq"
   "gopkg.in/gorp.v1"
   "log"
+  "fmt"
   // "strconv"
 )
 
@@ -65,24 +66,48 @@ func GetHero(c *gin.Context) {
   err := dbmap.SelectOne(&hero, "SELECT * FROM heroes WHERE id=$1", id)
   if err == nil {
     content := &Hero {
-    Id: id,
-    Name: hero.Name,
-    Description: hero.Description,
-    Role: hero.Role,
-    Type: hero.Type,
-    Image: hero.Image,
-    Difficulty: hero.Difficulty,
+      Id: id,
+      Name: hero.Name,
+      Description: hero.Description,
+      Role: hero.Role,
+      Type: hero.Type,
+      Image: hero.Image,
+      Difficulty: hero.Difficulty,
     }
     c.JSON(200, content)
   } else {
   c.JSON(404, gin.H{"error": "hero not found"})
   }
-// curl -i http://localhost:8080/api/v1/users/1
+// curl -i http://localhost:8080/api/v1/heroes/01fc2354-d257-4ccf-b863-98f76a185c1d
 }
 
 func PostHero(c *gin.Context) {
- // The futur code…
+  var hero Hero
+  c.Bind(&hero)
+  fmt.Println(hero)
+  if hero.Name != "" && hero.Description != "" && hero.Role != "" && hero.Type != "" && hero.Image != "" && hero.Difficulty != 0 {
+    if insert, err := dbmap.Exec(`INSERT INTO heroes (name, description, role, type, image, difficulty) VALUES ($1, $1, $1, $1, $1, $1)`, hero.Name, hero.Description, hero.Role, hero.Type, hero.Image, hero.Difficulty); insert != nil {
+      if err == nil {
+        content := &Hero {
+          Name: hero.Name,
+          Description: hero.Description,
+          Role: hero.Role,
+          Type: hero.Type,
+          Image: hero.Image,
+          Difficulty: hero.Difficulty,
+        }
+        c.JSON(201, content)
+      } else {
+        checkErr(err, "Insert failed")
+      }
+    }
+  } else {
+    c.JSON(422, gin.H{"error": "fields can't be empty"})
+  }
+// curl -i -X POST -H "Content-Type: application/json" -d "{ \"firstname\": \"Thea\", \"lastname\": \"Queen\" }" http://localhost:8080/api/v1/users
 }
+
+
 func UpdateHero(c *gin.Context) {
  // The futur code…
 }

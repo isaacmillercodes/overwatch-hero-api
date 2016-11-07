@@ -172,7 +172,7 @@ VALUES
 
   -- create game_types
 
-  INSERT INTO game_types (name, hasDefense)
+  INSERT INTO game_types (name, has_defense)
   VALUES
     ('Assault', true),
     ('Escort', true),

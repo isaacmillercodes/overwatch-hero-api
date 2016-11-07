@@ -172,12 +172,9 @@ VALUES
 
   -- create game_types
 
-  INSERT INTO game_types (name, onAttack)
+  INSERT INTO game_types (name, hasDefense)
   VALUES
     ('Assault', true),
-    ('Assault', false),
     ('Escort', true),
-    ('Escort', false),
     ('Hybrid', true),
-    ('Hybrid', false),
-    ('Control', true);
+    ('Control', false);

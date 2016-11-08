@@ -15,7 +15,7 @@ type Hero struct {
 	Name        string `db:"name" json:"name"`
 	Description string `db:"description" json:"description"`
 	Role        string `db:"role" json:"role"`
-	Secondary       string `db:"secondary" json:"secondary"`
+	Secondary   string `db:"secondary" json:"secondary"`
 	Image       string `db:"image" json:"image"`
 	Difficulty  int    `db:"difficulty" json:"difficulty"`
 }
@@ -82,25 +82,27 @@ func GetHero(c *gin.Context) {
 
 func PostHero(c *gin.Context) {
 
-    var hero Hero
-    c.Bind(&hero)
-    fmt.Println(hero)
+  var hero Hero
+  c.Bind(&hero)
 
-  _, err := dbmap.Exec(`INSERT INTO heroes (name, description, role, secondary, image, difficulty) VALUES ($1, $2, $3, $4, $5, $6)`, hero.Name, hero.Description, hero.Role, hero.Secondary, hero.Image, hero.Difficulty);
+  if hero.Name != "" && hero.Description != "" && hero.Role != "" && hero.Secondary != "" && hero.Image != "" && hero.Difficulty > 0 && hero.Difficulty < 4 {
 
-  if err == nil {
-    c.JSON(201, gin.H{"status": "success!"})
+    if insert, _ := dbmap.Exec(`INSERT INTO heroes (name, description, role, secondary, image, difficulty) VALUES ($1, $2, $3, $4, $5, $6)`, hero.Name, hero.Description, hero.Role, hero.Secondary, hero.Image, hero.Difficulty); insert != nil {
+
+      c.JSON(201, gin.H{"success": "New hero added!"})
+    }
+
   } else {
-    fmt.Println(err);
-    c.JSON(422, gin.H{"error": "something went wrong"})
+    c.JSON(422, gin.H{"error": "fields were missing"})
   }
-  //http POST http://localhost:8080/api/v1/heroes name="Character Name" description="Character Description" role="Character Role" secondary="Character Seconday" image="Character Image URL" /"difficulty/"=Character Difficulty(int)
+  //http POST http://localhost:8080/api/v1/heroes name="CoolCharacter" description="This character is super cool" role="Offense" secondary="Being Cool" image="image.jpg" difficulty:=3
 }
 
 
 func UpdateHero(c *gin.Context) {
- // The futur code…
+ // The future code…
 }
+
 func DeleteHero(c *gin.Context) {
- // The futur code…
+ // The future code…
 }

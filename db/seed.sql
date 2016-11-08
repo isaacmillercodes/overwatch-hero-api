@@ -2,7 +2,7 @@ TRUNCATE heroes CASCADE;
 
 -- create heroes
 
-INSERT INTO heroes (name, description, role, type, image, difficulty)
+INSERT INTO heroes (name, description, role, secondary, image, difficulty)
 VALUES
   ('Genji',
   'Genji flings precise and deadly Shuriken at his targets, and uses his technologically-advanced katana to deflect projectiles or deliver a Swift Strike that cuts down enemies.',

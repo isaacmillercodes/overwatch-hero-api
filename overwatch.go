@@ -7,7 +7,6 @@ import (
   "gopkg.in/gorp.v1"
   "log"
   "os"
-  "fmt"
 )
 
 type Hero struct {
@@ -68,7 +67,6 @@ func GetHeroes(c *gin.Context) {
   if err == nil {
     c.JSON(200, heroes)
   } else {
-    fmt.Println(err)
     c.JSON(404, gin.H{"error": "no heroes found"})
   }
 }

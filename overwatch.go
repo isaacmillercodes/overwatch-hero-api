@@ -57,7 +57,7 @@ func main() {
   v1.PUT("/gametypes/:id", UpdateGameType)
   v1.DELETE("/gametypes/:id", DeleteGameType)
   }
-  r.Run(":8080")
+  // r.Run(":8080")
 }
 
 func GetHeroes(c *gin.Context) {

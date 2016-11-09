@@ -6,7 +6,7 @@ import (
   _ "github.com/lib/pq"
   "gopkg.in/gorp.v1"
   "log"
-  "fmt"
+  // "fmt"
   // "strconv"
 )
 
@@ -118,7 +118,6 @@ func UpdateHero(c *gin.Context) {
 
     if changed.Name == "" && changed.Description == "" && changed.Role == "" && changed.Secondary == "" && changed.Image == "" && changed.Difficulty == 0 {
       c.JSON(422, gin.H{"error": "all fields were empty"})
-      fmt.Println("all fields were empty!")
     }
 
     if changed.Name != "" {
@@ -197,80 +196,66 @@ func GetGameType(c *gin.Context) {
 
 func PostGameType(c *gin.Context) {
 
-  var hero Hero
-  c.Bind(&hero)
+  var gametype GameType
+  c.Bind(&gametype)
 
-  if hero.Name != "" && hero.Description != "" && hero.Role != "" && hero.Secondary != "" && hero.Image != "" && hero.Difficulty > 0 && hero.Difficulty < 4 {
+  if gametype.Name != "" {
 
-    if insert, _ := dbmap.Exec(`INSERT INTO heroes (name, description, role, secondary, image, difficulty) VALUES ($1, $2, $3, $4, $5, $6)`, hero.Name, hero.Description, hero.Role, hero.Secondary, hero.Image, hero.Difficulty); insert != nil {
-
-      c.JSON(201, gin.H{"success": "New hero added!"})
+    if insert, _ := dbmap.Exec(`INSERT INTO game_types (name, has_defense) VALUES ($1, $2)`, gametype.Name, gametype.HasDefense); insert != nil {
+      c.JSON(201, gin.H{"success": "New game type added!"})
     }
 
   } else {
     c.JSON(422, gin.H{"error": "fields were missing"})
   }
-  //http POST http://localhost:8080/api/v1/heroes name="CoolCharacter" description="This character is super cool" role="Offense" secondary="Being Cool" image="image.jpg" difficulty:=3
+  //http POST http://localhost:8080/api/v1/gametypes name="Everyone is Symmetra" has_defense:=true
 }
 
 func UpdateGameType(c *gin.Context) {
 
   id := c.Params.ByName("id")
-  var hero Hero
-  err := dbmap.SelectOne(&hero, "SELECT * FROM heroes WHERE id=$1", id)
+  var gametype GameType
+  err := dbmap.SelectOne(&gametype, "SELECT * FROM game_types WHERE id=$1", id)
   if err == nil {
-    var changed Hero
+    var changed GameType
     c.Bind(&changed)
 
-    if changed.Name == "" && changed.Description == "" && changed.Role == "" && changed.Secondary == "" && changed.Image == "" && changed.Difficulty == 0 {
-      c.JSON(422, gin.H{"error": "all fields were empty"})
-      fmt.Println("all fields were empty!")
+    if changed.Name == "" {
+      c.JSON(422, gin.H{"error": "fields were empty"})
     }
 
     if changed.Name != "" {
-      hero.Name = changed.Name
+      gametype.Name = changed.Name
     }
-    if changed.Description != "" {
-      hero.Description = changed.Description
-    }
-    if changed.Role != "" {
-      hero.Role = changed.Role
-    }
-    if changed.Secondary != "" {
-      hero.Secondary = changed.Secondary
-    }
-    if changed.Image != "" {
-      hero.Image = changed.Image
-    }
-    if changed.Difficulty != 0 {
-      hero.Difficulty = changed.Difficulty
+    if changed.HasDefense != gametype.HasDefense {
+      gametype.HasDefense = changed.HasDefense
     }
 
-    if update, err2 := dbmap.Exec(`UPDATE heroes SET name=$1, description=$2, role=$3, secondary=$4, image=$5, difficulty=$6 WHERE id=$7`, hero.Name, hero.Description, hero.Role, hero.Secondary, hero.Image, hero.Difficulty, id); update != nil {
-      c.JSON(200, hero)
+    if update, err2 := dbmap.Exec(`UPDATE game_types SET name=$1, has_defense=$2 WHERE id=$3`, gametype.Name, gametype.HasDefense, id); update != nil {
+      c.JSON(200, gametype)
     } else {
       checkErr(err2, "Update failed")
     }
 
   } else {
-    c.JSON(404, gin.H{"error": "hero not found"})
+    c.JSON(404, gin.H{"error": "game type not found"})
   }
 }
 
 func DeleteGameType(c *gin.Context) {
   id := c.Params.ByName("id")
-  var hero Hero
-  err := dbmap.SelectOne(&hero, "SELECT * FROM heroes WHERE id=$1", id)
+  var gametype GameType
+  err := dbmap.SelectOne(&gametype, "SELECT * FROM game_types WHERE id=$1", id)
   if err == nil {
 
-    if delete, err2 := dbmap.Exec(`DELETE FROM heroes WHERE id=$1`, id); delete != nil {
-      c.JSON(200, gin.H{"success": hero.Name + " was deleted"})
+    if delete, err2 := dbmap.Exec(`DELETE FROM game_types WHERE id=$1`, id); delete != nil {
+      c.JSON(200, gin.H{"success": gametype.Name + " was deleted"})
     } else {
       checkErr(err2, "Delete failed")
     }
 
   } else {
-    c.JSON(404, gin.H{"error": "hero not found"})
+    c.JSON(404, gin.H{"error": "game type not found"})
   }
 
 }

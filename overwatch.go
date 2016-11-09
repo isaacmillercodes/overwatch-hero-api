@@ -29,6 +29,7 @@ type GameType struct {
 var dbmap = initDb()
 
 func initDb() *gorp.DbMap {
+  //input url to run locally
   url := os.Getenv("DATABASE_URL")
   db, err := sql.Open("postgres", url)
   checkErr(err, "sql.Open failed")

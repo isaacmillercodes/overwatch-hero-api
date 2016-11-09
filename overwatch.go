@@ -6,6 +6,8 @@ import (
   _ "github.com/lib/pq"
   "gopkg.in/gorp.v1"
   "log"
+  "os"
+  "fmt"
 )
 
 type Hero struct {
@@ -27,7 +29,8 @@ type GameType struct {
 var dbmap = initDb()
 
 func initDb() *gorp.DbMap {
-  db, err := sql.Open("postgres", "postgres://Isaac:password@localhost/overwatch_api?sslmode=disable")
+  url := os.Getenv("DATABASE_URL")
+  db, err := sql.Open("postgres", url)
   checkErr(err, "sql.Open failed")
   dbmap := &gorp.DbMap{Db: db, Dialect: gorp.PostgresDialect{}}
   return dbmap
@@ -63,6 +66,7 @@ func GetHeroes(c *gin.Context) {
   if err == nil {
     c.JSON(200, heroes)
   } else {
+    fmt.Println(err)
     c.JSON(404, gin.H{"error": "no heroes found"})
   }
 }

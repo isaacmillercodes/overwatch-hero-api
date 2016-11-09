@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS overwatch_api;
-CREATE DATABASE overwatch_api;
-
-\c overwatch_api;
+-- DROP DATABASE IF EXISTS overwatch_api;
+-- CREATE DATABASE overwatch_api;
+--
+-- \c overwatch_api;
 
 CREATE EXTENSION pgcrypto;
 

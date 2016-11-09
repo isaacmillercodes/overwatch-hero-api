@@ -175,28 +175,23 @@ func GetGameTypes(c *gin.Context) {
   if err == nil {
     c.JSON(200, game_types)
   } else {
-    fmt.Println(err)
     c.JSON(404, gin.H{"error": "no game types found"})
   }
 }
 
 func GetGameType(c *gin.Context) {
   id := c.Params.ByName("id")
-  var hero Hero
-  err := dbmap.SelectOne(&hero, "SELECT * FROM heroes WHERE id=$1", id)
+  var gametype GameType
+  err := dbmap.SelectOne(&gametype, "SELECT * FROM game_types WHERE id=$1", id)
   if err == nil {
-    content := &Hero {
+    content := &GameType {
       Id: id,
-      Name: hero.Name,
-      Description: hero.Description,
-      Role: hero.Role,
-      Secondary: hero.Secondary,
-      Image: hero.Image,
-      Difficulty: hero.Difficulty,
+      Name: gametype.Name,
+      HasDefense: gametype.HasDefense,
     }
     c.JSON(200, content)
   } else {
-  c.JSON(404, gin.H{"error": "hero not found"})
+  c.JSON(404, gin.H{"error": "game type not found"})
   }
 }
 

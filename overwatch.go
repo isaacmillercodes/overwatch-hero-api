@@ -6,8 +6,6 @@ import (
   _ "github.com/lib/pq"
   "gopkg.in/gorp.v1"
   "log"
-  // "fmt"
-  // "strconv"
 )
 
 type Hero struct {

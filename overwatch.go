@@ -132,7 +132,7 @@ func UpdateHero(c *gin.Context) {
     if update, err2 := dbmap.Exec(`UPDATE heroes SET name=$1, description=$2, role=$3, secondary=$4, image=$5, difficulty=$6 WHERE id=$7`, hero.Name, hero.Description, hero.Role, hero.Secondary, hero.Image, hero.Difficulty, id); update != nil {
       c.JSON(200, hero)
     } else {
-      checkErr(err2, "Updated failed")
+      checkErr(err2, "Update failed")
     }
 
   } else {
@@ -141,5 +141,19 @@ func UpdateHero(c *gin.Context) {
 }
 
 func DeleteHero(c *gin.Context) {
- // The future code…
+  id := c.Params.ByName("id")
+  var hero Hero
+  err := dbmap.SelectOne(&hero, "SELECT * FROM heroes WHERE id=$1", id)
+  if err == nil {
+
+    if delete, err2 := dbmap.Exec(`DELETE FROM heroes WHERE id=$1`, id); delete != nil {
+      c.JSON(200, gin.H{"success": hero.Name + " was deleted"})
+    } else {
+      checkErr(err2, "Delete failed")
+    }
+
+  } else {
+    c.JSON(404, gin.H{"error": "hero not found"})
+  }
+
 }

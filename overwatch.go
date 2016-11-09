@@ -43,6 +43,7 @@ func checkErr(err error, msg string) {
 }
 
 func main() {
+  port := os.Getenv("PORT")
   r := gin.Default()
   v1 := r.Group("api/v1")
   {
@@ -57,7 +58,7 @@ func main() {
   v1.PUT("/gametypes/:id", UpdateGameType)
   v1.DELETE("/gametypes/:id", DeleteGameType)
   }
-  // r.Run(":8080")
+  r.Run(":" + port)
 }
 
 func GetHeroes(c *gin.Context) {

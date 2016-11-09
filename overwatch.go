@@ -56,7 +56,6 @@ func GetHeroes(c *gin.Context) {
   } else {
     c.JSON(404, gin.H{"error": "no heroes found"})
   }
-  // curl -i http://localhost:8080/api/v1/heroes
 }
 
 func GetHero(c *gin.Context) {
@@ -77,7 +76,6 @@ func GetHero(c *gin.Context) {
   } else {
   c.JSON(404, gin.H{"error": "hero not found"})
   }
-// curl -i http://localhost:8080/api/v1/heroes/01fc2354-d257-4ccf-b863-98f76a185c1d
 }
 
 func PostHero(c *gin.Context) {
@@ -98,9 +96,48 @@ func PostHero(c *gin.Context) {
   //http POST http://localhost:8080/api/v1/heroes name="CoolCharacter" description="This character is super cool" role="Offense" secondary="Being Cool" image="image.jpg" difficulty:=3
 }
 
-
 func UpdateHero(c *gin.Context) {
- // The future code…
+
+  id := c.Params.ByName("id")
+  var hero Hero
+  err := dbmap.SelectOne(&hero, "SELECT * FROM heroes WHERE id=$1", id)
+  if err == nil {
+    var changed Hero
+    c.Bind(&changed)
+
+    if changed.Name == "" && changed.Description == "" && changed.Role == "" && changed.Secondary == "" && changed.Image == "" && changed.Difficulty == 0 {
+      c.JSON(422, gin.H{"error": "all fields were empty"})
+      fmt.Println("all fields were empty!")
+    }
+
+    if changed.Name != "" {
+      hero.Name = changed.Name
+    }
+    if changed.Description != "" {
+      hero.Description = changed.Description
+    }
+    if changed.Role != "" {
+      hero.Role = changed.Role
+    }
+    if changed.Secondary != "" {
+      hero.Secondary = changed.Secondary
+    }
+    if changed.Image != "" {
+      hero.Image = changed.Image
+    }
+    if changed.Difficulty != 0 {
+      hero.Difficulty = changed.Difficulty
+    }
+
+    if update, err2 := dbmap.Exec(`UPDATE heroes SET name=$1, description=$2, role=$3, secondary=$4, image=$5, difficulty=$6 WHERE id=$7`, hero.Name, hero.Description, hero.Role, hero.Secondary, hero.Image, hero.Difficulty, id); update != nil {
+      c.JSON(200, hero)
+    } else {
+      checkErr(err2, "Updated failed")
+    }
+
+  } else {
+    c.JSON(404, gin.H{"error": "hero not found"})
+  }
 }
 
 func DeleteHero(c *gin.Context) {

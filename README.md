@@ -4,7 +4,7 @@ The unofficial Overwatch Hero API allows developers to get data for every hero i
 
 ## Routes:
 
-The base URL is [https://overwatch-hero-api.herokuapp.com/api/v1/]
+The base URL is (https://overwatch-hero-api.herokuapp.com/api/v1/)
 
 To get a list of all heroes, send a get request to `https://overwatch-hero-api.herokuapp.com/api/v1/heroes`
 
